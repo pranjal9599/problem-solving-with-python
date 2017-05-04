@@ -31,5 +31,29 @@ def infixToPostfix(infixexpr):
 		postfixList.append(opStack.pop())
 	return " ".join(postfixList)
 
+def doMath(op1, op2, operator):
+	if operator == "*":
+		return op1 * op2
+	elif operator == "/":
+		return op1 / op2
+	elif operator == "+":
+		return op1 + op2
+	else:
+		return op1 - op2
+
+def evalute(postFixExp):
+	opearandStack = Stack()
+	postExpList = postFixExp.split()
+
+	for token in postExpList:
+		if token in "0123456789":
+			opearandStack.push(token)
+		else:
+			operator2 = opearandStack.pop()
+			operator1 = opearandStack.pop()
+			val = doMath(operator1, operator2, token)
+			opearandStack.push(val)
+	return opearandStack.pop()
+
 print(infixToPostfix("A * B + C * D"))
 print(infixToPostfix("( A + B ) * C - ( D - E ) * ( F + G )"))
